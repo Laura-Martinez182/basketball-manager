@@ -55,7 +55,7 @@ public class FIBAManager {
 
     private synchronized void loadTreesData() throws IOException {
         String line;
-        int i = 0;
+        int i = 1;
         while((line = reader.readLine()) != null) {
             String[] parts = line.split(SEPARATOR);
             double points = Double.parseDouble(parts[POINTS_INDEX]);

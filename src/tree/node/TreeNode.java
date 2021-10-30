@@ -8,6 +8,14 @@ public class TreeNode<K, V extends Comparable<V>> implements Comparable<V> {
     private TreeNode<K, V> left;
     private TreeNode<K, V> right;
 
+    public TreeNode() {
+        key = null;
+        value = null;
+        parent = null;
+        left = null;
+        right = null;
+    }
+
     public TreeNode(K key, V value) {
         this.key = key;
         this.value = value;

@@ -1,4 +1,4 @@
-package Tree;
+package tree;
 
 public interface TreeInterface<K, V extends Comparable<V>> {
 

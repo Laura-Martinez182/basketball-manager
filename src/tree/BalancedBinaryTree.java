@@ -49,10 +49,7 @@ public class BalancedBinaryTree<K, V extends Comparable<V>> extends BinarySearch
         if(toRemove == null)
             throw new TreeException();
         else {
-            super.remove(toRemove);
-            if(toRemove.parent() != null && Math.abs(balanceFactor(toRemove.parent())) > 1) {
-                rebalance(toRemove.parent());
-            }
+            rebalance(super.remove(toRemove));
         }
     }
 

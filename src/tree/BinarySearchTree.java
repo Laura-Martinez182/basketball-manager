@@ -111,13 +111,16 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
             nodeV.setParent(nodeU.parent());
     }
 
-    protected void remove(TreeNode<K, V> toRemove) {
-        if(toRemove.left() == null)
+    protected TreeNode<K, V> remove(TreeNode<K, V> toRemove) {
+        TreeNode<K, V> parent = toRemove.parent();
+        if(toRemove.left() == null) {
             transplant(toRemove, toRemove.right());
-        else if(toRemove.right() == null)
+            return parent;
+        } else if(toRemove.right() == null) {
             transplant(toRemove, toRemove.left());
-        else {
-            TreeNode<K, V> min = minNode(toRemove.right());
+            return parent;
+        } else {
+            TreeNode<K, V> min = successor(toRemove);
             if(min.parent() != toRemove) {
                 transplant(min, min.right());
                 min.setRight(toRemove.right());
@@ -126,6 +129,7 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
             transplant(toRemove, min);
             min.setLeft(toRemove.left());
             min.left().setParent(min);
+            return min.right();
         }
     }
 

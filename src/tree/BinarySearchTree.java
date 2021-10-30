@@ -15,6 +15,14 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
         return (root == null);
     }
 
+    protected TreeNode<K, V> getRootNode() {
+        return root;
+    }
+
+    protected void setRootNode(TreeNode<K, V> root) {
+        this.root = root;
+    }
+
     @Override
     public V root() throws TreeException {
         if(root == null)
@@ -49,7 +57,7 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
         }
     }
 
-    private TreeNode<K, V> searchNodeByKey(TreeNode<K, V> aux, K k) {
+    protected TreeNode<K, V> searchNodeByKey(TreeNode<K, V> aux, K k) {
         if(aux == null || aux.key() == k)
             return aux;
         TreeNode<K, V> left = searchNodeByKey(aux.left(), k);
@@ -65,7 +73,7 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
         return (searchNodeByKey(root, k) != null);
     }
 
-    private TreeNode<K, V> searchNodeByValue(TreeNode<K, V> aux, V v) {
+    protected TreeNode<K, V> searchNodeByValue(TreeNode<K, V> aux, V v) {
         if(aux == null || aux.value() == v) {
             return aux;
         } else {
@@ -103,7 +111,7 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
             nodeV.setParent(nodeU.parent());
     }
 
-    private void remove(TreeNode<K, V> toRemove) {
+    protected void remove(TreeNode<K, V> toRemove) {
         if(toRemove.left() == null)
             transplant(toRemove, toRemove.right());
         else if(toRemove.right() == null)
@@ -169,17 +177,48 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
         return subTree;
     }
 
+
     @Override
-    public String inorder() {
-        return inorder(root);
+    public String preOrder() {
+        return preOrder(root);
     }
 
-    private String inorder(TreeNode<K, V> aux) {
+    public String preOrder(TreeNode<K, V> aux) {
         String info = "";
         if(aux != null) {
-            info += inorder(aux.left());
             info += aux.value().toString() + "\n";
-            info += inorder(aux.right());
+            info += preOrder(aux.left());
+            info += preOrder(aux.right());
+        }
+        return info;
+    }
+
+    @Override
+    public String inOrder() {
+        return inOrder(root);
+    }
+
+    private String inOrder(TreeNode<K, V> aux) {
+        String info = "";
+        if(aux != null) {
+            info += inOrder(aux.left());
+            info += aux.value().toString() + "\n";
+            info += inOrder(aux.right());
+        }
+        return info;
+    }
+
+    @Override
+    public String posOrder() {
+        return posOrder(root);
+    }
+
+    private String posOrder(TreeNode<K, V> aux) {
+        String info = "";
+        if(aux != null) {
+            info += posOrder(aux.right());
+            info += aux.value().toString() + "\n";
+            info += posOrder(aux.left());
         }
         return info;
     }

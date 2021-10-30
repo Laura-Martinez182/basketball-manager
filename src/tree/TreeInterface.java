@@ -18,6 +18,10 @@ public interface TreeInterface<K, V extends Comparable<V>> {
 
     public V maximum() throws TreeException;
 
-    public String inorder();
+    public String preOrder();
+
+    public String inOrder();
+
+    public String posOrder();
 
 }

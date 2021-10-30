@@ -38,10 +38,11 @@ public class FIBAManager {
         assistsTree = new BalancedBinaryTree<>();
         stealsTree = new BalancedBinaryTree<>();
         blocksTree = new BalancedBinaryTree<>();
-        if(!dataFile.exists())
+        if(!dataFile.exists()) {
             dataFile.createNewFile();
+        }
         reader = new BufferedReader(new FileReader(dataFile));
-        writer = new PrintWriter(new FileWriter(dataFile));
+        writer = new PrintWriter(new FileWriter(fileURL, true));
         loadTreesData();
     }
 
@@ -54,7 +55,7 @@ public class FIBAManager {
     }
 
     private synchronized void loadTreesData() throws IOException {
-        String line;
+        String line = reader.readLine();
         int i = 1;
         while((line = reader.readLine()) != null) {
             String[] parts = line.split(SEPARATOR);

@@ -2,7 +2,9 @@ package tree;
 
 public interface TreeInterface<K, V extends Comparable<V>> {
 
-    public V root();
+    public boolean isEmpty();
+
+    public V root() throws TreeException;
 
     public void insert(K k, V v);
 
@@ -10,11 +12,11 @@ public interface TreeInterface<K, V extends Comparable<V>> {
 
     public boolean containsValue(V v);
 
-    public void remove(K k);
+    public void remove(K k) throws TreeException;
 
-    public V minimum();
+    public V minimum() throws TreeException;
 
-    public V maximum();
+    public V maximum() throws TreeException;
 
     public String inorder();
 

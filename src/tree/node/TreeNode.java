@@ -64,6 +64,10 @@ public class TreeNode<K, V extends Comparable<V>> implements Comparable<V> {
         return right;
     }
 
+    public boolean isLeaf() {
+        return (left == null) && (right == null);
+    }
+
     @Override
     public int compareTo(V o) {
         return value.compareTo(o);

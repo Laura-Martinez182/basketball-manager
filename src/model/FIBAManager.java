@@ -92,7 +92,7 @@ public class FIBAManager {
             int key = 1;
             while((line = reader.readLine()) != null) {
                 String[] parts = line.split(SEPARATOR);
-                if(parts[NAME_INDEX].trim().equalsIgnoreCase(name.trim())) {
+                if(parts[NAME_INDEX].trim().toLowerCase().contains(name.trim().toLowerCase())) {
                     Player found = new Player(parts);
                     found.setKey(key);
                     playersFound.add(found);

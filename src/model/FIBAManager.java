@@ -1,5 +1,6 @@
 package model;
 
+import thread.LoadDataThread;
 import tree.BalancedBinaryTree;
 
 import java.io.*;
@@ -54,23 +55,17 @@ public class FIBAManager {
         return searchTime;
     }
 
-    private synchronized void loadTreesData() throws IOException {
-        String line = reader.readLine();
-        int i = 1;
-        while((line = reader.readLine()) != null) {
-            String[] parts = line.split(SEPARATOR);
-            double points = Double.parseDouble(parts[POINTS_INDEX]);
-            double rebounds = Double.parseDouble(parts[REBOUNDS_INDEX]);
-            double assists = Double.parseDouble(parts[ASSISTS_INDEX]);
-            double steals = Double.parseDouble(parts[STEALS_INDEX]);
-            double blocks = Double.parseDouble(parts[BLOCKS_INDEX]);
-            pointsTree.insert(i, points);
-            reboundsTree.insert(i, rebounds);
-            assistsTree.insert(i, assists);
-            stealsTree.insert(i, steals);
-            blocksTree.insert(i, blocks);
-            ++ i;
-        }
+    private void loadTreesData() throws IOException {
+        LoadDataThread pointsThread = new LoadDataThread(pointsTree, dataFile, POINTS_INDEX, SEPARATOR);
+        LoadDataThread reboundsThread = new LoadDataThread(reboundsTree, dataFile, REBOUNDS_INDEX, SEPARATOR);
+        LoadDataThread assistsThread = new LoadDataThread(assistsTree, dataFile, ASSISTS_INDEX, SEPARATOR);
+        LoadDataThread stealsThread = new LoadDataThread(stealsTree, dataFile, STEALS_INDEX, SEPARATOR);
+        LoadDataThread blocksThread = new LoadDataThread(blocksTree, dataFile, BLOCKS_INDEX, SEPARATOR);
+        pointsThread.start();
+        reboundsThread.start();
+        assistsThread.start();
+        stealsThread.start();
+        blocksThread.start();
     }
 
     public void addPlayer() {

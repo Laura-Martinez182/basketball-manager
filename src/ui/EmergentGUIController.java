@@ -3,8 +3,11 @@ package ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
@@ -59,7 +62,33 @@ public class EmergentGUIController {
 
     @FXML
     public void importPlayersData(ActionEvent event) {
-        System.out.println("PRESSED!!!");
+        String path = filePathTxt.getText();
+        String separator = separatorTxt.getText();
+        RadioButton selected = (RadioButton) headerOpt.getSelectedToggle();
+        boolean header = selected.getText().equals("SI");
+        if(!path.isEmpty() && !separator.isEmpty()) {
+            if(manager.addPlayer(header, path, separator)) {
+                showInformationAlert(null, "Se han importado los datos correctamente", null);
+                closeEmergentWindow(event);
+            } else
+                showInformationAlert(null, "Ha ocurrido un error al momento de importar", null);
+        } else {
+            showInformationAlert(null, "Deben llenarse todos los campos", null);
+        }
+    }
+
+    private void showInformationAlert(String title,String msg,String header){
+        Alert feedBack = new Alert(Alert.AlertType.INFORMATION);
+        feedBack.setTitle(title);
+        feedBack.setHeaderText(header);
+        feedBack.setContentText(msg);
+        feedBack.showAndWait();
+    }
+
+    private void closeEmergentWindow(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
 }

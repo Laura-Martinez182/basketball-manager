@@ -89,7 +89,7 @@ public class FIBAManager {
         }
     }
 
-    public void addPlayer(final boolean header, final String filePath, final String s) {
+    public boolean addPlayer(final boolean header, final String filePath, final String s) {
         try {
             reader = new BufferedReader(new FileReader(filePath));
             String line = "";
@@ -109,7 +109,10 @@ public class FIBAManager {
                 ++ key;
             }
             reader.close();
-        } catch (IOException ignored) {}
+            return true;
+        } catch (IOException ignored) {
+            return false;
+        }
     }
 
     public List<Player> searchPlayersByName(String name) {

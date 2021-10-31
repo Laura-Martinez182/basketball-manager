@@ -43,7 +43,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="38.0" prefWidth="31.0" />
-                        <RadioButton mnemonicParsing="false" text="SI">
+                        <RadioButton mnemonicParsing="false" selected="true" text="SI">
                            <font>
                               <Font name="System Bold Italic" size="13.0" />
                            </font>

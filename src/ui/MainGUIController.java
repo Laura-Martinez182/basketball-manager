@@ -85,15 +85,14 @@ public class MainGUIController {
                 assistsTxt.clear();
                 stealsTxt.clear();
                 blocksTxt.clear();
-            }
-            else
+            } else
                 showInformationAlert(null, "Ocurrio un error durante el regitrso, no se pudo registrar al jugador" , null);
         } catch(NumberFormatException e) {
             showInformationAlert(null, "No se pudo registrar al jugador porque hay campos númericos que contienen caracteres o están vacíos", null);
         }
     }
 
-    public void showInformationAlert(String title,String msg,String header){
+    private void showInformationAlert(String title,String msg,String header){
         Alert feedBack = new Alert(Alert.AlertType.INFORMATION);
         feedBack.setTitle(title);
         feedBack.setHeaderText(header);

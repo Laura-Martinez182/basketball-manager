@@ -84,6 +84,28 @@ public class FIBAManager {
         } catch (IOException ignored) {}
     }
 
+    public void addPlayer(final boolean header, final String filePath, final String s) {
+        try {
+            reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            if(header)
+                line = reader.readLine();
+            int key = (int) new BufferedReader(new FileReader(dataFile)).lines().count() + 1;
+            while((line = reader.readLine()) != null) {
+                String[] parts = line.split(s);
+                Player toAdd = new Player(parts);
+                writer.println(toAdd);
+                pointsTree.insert(key, toAdd.getPoints());
+                reboundsTree.insert(key, toAdd.getRebounds());
+                assistsTree.insert(key, toAdd.getAssists());
+                stealsTree.insert(key, toAdd.getSteals());
+                blocksTree.insert(key, toAdd.getBlocks());
+                ++ key;
+            }
+            reader.close();
+        } catch (IOException ignored) {}
+    }
+
     public List<Player> searchPlayersByName(String name) {
         List<Player> playersFound = new ArrayList<>();
         try {

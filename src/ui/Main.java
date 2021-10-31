@@ -35,8 +35,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, null);
         window.setTitle("");
         window.setScene(scene);
-        window.setResizable(false);
         window.show();
+        MGC.showRegisterPlayerScene();
     }
 
 }

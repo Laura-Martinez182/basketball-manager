@@ -7,11 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class FIBAManager {
 
-    private int searchTime;
+    private long searchTime;
 
     private final int NAME_INDEX = 0;
     private final int AGE_INDEX = 1;
@@ -36,7 +35,7 @@ public class FIBAManager {
     private BalancedBinaryTree<Integer, Double> blocksTree;
 
     public FIBAManager() throws IOException {
-        searchTime = 0;
+        searchTime = 0L;
         dataFile = new File(fileURL);
         pointsTree = new BalancedBinaryTree<>();
         reboundsTree = new BalancedBinaryTree<>();
@@ -50,11 +49,11 @@ public class FIBAManager {
         loadTreesData();
     }
 
-    public void setSearchTime(int searchTime) {
+    public void setSearchTime(long searchTime) {
         this.searchTime = searchTime;
     }
 
-    public int getSearchTime() {
+    public long getSearchTime() {
         return searchTime;
     }
 
@@ -71,7 +70,7 @@ public class FIBAManager {
         blocksThread.start();
     }
 
-    public void addPlayer(String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
+    public boolean addPlayer(String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
         try {
             reader = new BufferedReader(new FileReader(dataFile));
             Player toAdd = new Player(name, age, team, points, rebounds, assists, steals, blocks);
@@ -84,7 +83,10 @@ public class FIBAManager {
             stealsTree.insert(key, steals);
             blocksTree.insert(key, blocks);
             reader.close();
-        } catch (IOException ignored) {}
+            return true;
+        } catch (IOException ignored) {
+            return false;
+        }
     }
 
     public void addPlayer(final boolean header, final String filePath, final String s) {
@@ -111,6 +113,7 @@ public class FIBAManager {
     }
 
     public List<Player> searchPlayersByName(String name) {
+        searchTime = System.nanoTime();
         List<Player> playersFound = new ArrayList<>();
         try {
             reader = new BufferedReader(new FileReader(dataFile));
@@ -127,6 +130,7 @@ public class FIBAManager {
             }
             reader.close();
         } catch (IOException ignored) {}
+        searchTime = (long) ((System.nanoTime() - searchTime) / 1e+6);
         return playersFound;
     }
 

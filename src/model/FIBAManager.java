@@ -105,7 +105,6 @@ public class FIBAManager {
                 blocksTree.insert(key, toAdd.getBlocks());
                 ++ key;
             }
-            System.out.println(pointsTree.inOrder());
             reader.close();
         } catch (IOException ignored) {}
     }
@@ -175,6 +174,27 @@ public class FIBAManager {
 
     public List<Player> searchPlayersByValue(Criteria criteria, double value) {
         List<Player> playersFound = new ArrayList<>();
+        List<Integer> keys = getTreeToSearch(criteria).getKeysEqualTo(value);
+        if(!keys.isEmpty()) {
+            Collections.sort(keys);
+            try {
+                reader = new BufferedReader(new FileReader(dataFile));
+                String line;
+                int i = 1;
+                int j = 0;
+                while(j < keys.size() && (line = reader.readLine()) != null) {
+                    if(i == keys.get(j)) {
+                        String[] parts = line.split(SEPARATOR);
+                        Player player = new Player(parts);
+                        player.setKey(keys.get(j));
+                        playersFound.add(player);
+                        ++ j;
+                    }
+                    ++ i;
+                }
+                reader.close();
+            } catch (IOException ignored) {}
+        }
         return playersFound;
     }
 

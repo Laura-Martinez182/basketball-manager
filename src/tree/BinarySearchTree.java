@@ -195,6 +195,24 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
         return subTree;
     }
 
+    @Override
+    public List<K> getKeysEqualTo(V value) {
+        List<K> list = new ArrayList<>();
+        return getKeysEqualTo(list, root, value);
+    }
+
+    private List<K> getKeysEqualTo(List<K> list, TreeNode<K, V> current, V value) {
+        if(current != null) {
+            if(current.value().compareTo(value) == 0) {
+                list.add(current.key());
+            }
+            getKeysEqualTo(list, current.left(), value);
+            getKeysEqualTo(list, current.right(), value);
+        }
+        return list;
+    }
+
+    @Override
     public List<K> getKeysInRange(V min, V max) {
         List<K> list = new ArrayList<>();
         return getKeysInRange(list, root, min, max);

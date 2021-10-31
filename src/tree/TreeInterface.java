@@ -20,6 +20,8 @@ public interface TreeInterface<K, V extends Comparable<V>> {
 
     public V maximum() throws TreeException;
 
+    public List<K> getKeysEqualTo(V value);
+
     public List<K> getKeysInRange(V min, V max);
 
     public String preOrder();

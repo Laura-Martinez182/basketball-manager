@@ -15,6 +15,17 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
         return (root == null);
     }
 
+    public int height() {
+        return calcHeight(root);
+    }
+
+    protected int calcHeight(TreeNode<K, V> subTree) {
+        if(subTree == null)
+            return 0;
+        else
+            return 1 + Math.max(calcHeight(subTree.left()), calcHeight(subTree.right()));
+    }
+
     protected TreeNode<K, V> getRootNode() {
         return root;
     }

@@ -8,10 +8,6 @@ public class BalancedBinaryTree<K, V extends Comparable<V>> extends BinarySearch
         super();
     }
 
-    public int height() {
-        return calcHeight(super.getRootNode());
-    }
-
     @Override
     public void insert(K k, V v) {
         TreeNode<K, V> toAdd = new TreeNode<>(k, v);
@@ -51,13 +47,6 @@ public class BalancedBinaryTree<K, V extends Comparable<V>> extends BinarySearch
         else {
             rebalance(super.remove(toRemove));
         }
-    }
-
-    private int calcHeight(TreeNode<K, V> subTree) {
-        if(subTree == null)
-            return 0;
-        else
-            return 1 + Math.max(calcHeight(subTree.left()), calcHeight(subTree.right()));
     }
 
     private int balanceFactor(TreeNode<K, V> subTree) {

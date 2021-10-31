@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Pane prefHeight="243.0" prefWidth="430.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" layoutX="18.0" layoutY="67.0" prefHeight="127.0" prefWidth="394.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="37.0" prefWidth="490.0">
+                     <children>
+                        <Label text="Ruta del archivo:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font></Label>
+                        <Pane prefHeight="36.0" prefWidth="18.0" />
+                        <TextField fx:id="filePathTxt" editable="false" prefHeight="25.0" prefWidth="182.0" />
+                        <Button mnemonicParsing="false" onAction="#openFileChooser" text="...">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="490.0">
+                     <children>
+                        <Label prefHeight="20.0" prefWidth="102.0" text="Separador:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="separatorTxt" prefHeight="25.0" prefWidth="79.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="39.0" prefWidth="490.0">
+                     <children>
+                        <Label text="Encabezado:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="38.0" prefWidth="31.0" />
+                        <RadioButton mnemonicParsing="false" text="SI">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="headerOpt" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="NO" toggleGroup="$headerOpt">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Label layoutX="123.0" layoutY="24.0" text="Importar Información">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <Button layoutX="168.0" layoutY="200.0" mnemonicParsing="false" onAction="#importPlayersData" text="IMPORTAR">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </top>
+</BorderPane>

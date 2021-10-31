@@ -111,5 +111,4 @@ public class Player {
 	public String getInfoWithSeparator(final String s) {
 		return name + s + age + s + team + s + points + s + rebounds + s + assists + s + steals + s + blocks;
 	}
-
 }

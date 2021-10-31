@@ -29,7 +29,7 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
             return 1 + Math.max(calcHeight(subTree.left()), calcHeight(subTree.right()));
     }
 
-    protected TreeNode<K, V> getRootNode() {
+    public TreeNode<K, V> getRootNode() {
         return root;
     }
 

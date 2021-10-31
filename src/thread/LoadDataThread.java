@@ -29,9 +29,8 @@ public class LoadDataThread extends Thread {
 
     @Override
     public void run() {
-        String line = null;
+        String line;
         try {
-            line = br.readLine();
             int key = 1;
             while((line = br.readLine()) != null) {
                 String[] parts = line.split(separator);

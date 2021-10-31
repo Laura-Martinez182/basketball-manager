@@ -88,11 +88,11 @@ public class FIBAManager {
         List<Player> playersFound = new ArrayList<>();
         try {
             reader = new BufferedReader(new FileReader(dataFile));
-            String line = reader.readLine();
+            String line;
             int key = 1;
             while((line = reader.readLine()) != null) {
                 String[] parts = line.split(SEPARATOR);
-                if(parts[NAME_INDEX].trim().toLowerCase().contains(name.trim().toLowerCase())) {
+                if(parts[NAME_INDEX].trim().toLowerCase().contains(name.toLowerCase())) {
                     Player found = new Player(parts);
                     found.setKey(key);
                     playersFound.add(found);
@@ -103,7 +103,12 @@ public class FIBAManager {
         return playersFound;
     }
 
-    public void deletePlayer() {
+    public List<Player> searchPlayersInRange(Criteria criteria, int min, int max) {
+        List<Player> playersFound = new ArrayList<>();
+        return playersFound;
+    }
+
+    public void deletePlayer(int key) {
 
     }
 

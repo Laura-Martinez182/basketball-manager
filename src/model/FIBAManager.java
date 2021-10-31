@@ -78,7 +78,8 @@ public class FIBAManager {
             assistsTree.insert(key, assists);
             stealsTree.insert(key, steals);
             blocksTree.insert(key, blocks);
-        } catch (FileNotFoundException ignored) {}
+            reader.close();
+        } catch (IOException ignored) {}
     }
 
     public void deletePlayer() {

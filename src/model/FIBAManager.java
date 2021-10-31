@@ -2,10 +2,13 @@ package model;
 
 import thread.LoadDataThread;
 import tree.BalancedBinaryTree;
+import tree.TreeInterface;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class FIBAManager {
 
@@ -45,7 +48,7 @@ public class FIBAManager {
             dataFile.createNewFile();
         }
         writer = new PrintWriter(new FileWriter(fileURL, true));
-        loadTreesData();
+        //loadTreesData();
     }
 
     public void setSearchTime(int searchTime) {
@@ -73,7 +76,8 @@ public class FIBAManager {
         try {
             reader = new BufferedReader(new FileReader(dataFile));
             Player toAdd = new Player(name, age, team, points, rebounds, assists, steals, blocks);
-            writer.println(toAdd.getInfoWithSeparator(SEPARATOR));
+            writer.write("\n"+toAdd.getInfoWithSeparator(SEPARATOR));
+            writer.flush();
             int key = (int) reader.lines().count();
             pointsTree.insert(key, points);
             reboundsTree.insert(key, rebounds);
@@ -87,11 +91,11 @@ public class FIBAManager {
     public void addPlayer(final boolean header, final String filePath, final String s) {
         try {
             reader = new BufferedReader(new FileReader(filePath));
-            String line;
+            String line = "";
             if(header)
                 line = reader.readLine();
             int key = (int) new BufferedReader(new FileReader(dataFile)).lines().count() + 1;
-            while((line = reader.readLine()) != null) {
+            while(line != null) {
                 String[] parts = line.split(s);
                 Player toAdd = new Player(parts);
                 writer.println(toAdd);
@@ -100,6 +104,7 @@ public class FIBAManager {
                 assistsTree.insert(key, toAdd.getAssists());
                 stealsTree.insert(key, toAdd.getSteals());
                 blocksTree.insert(key, toAdd.getBlocks());
+                line = reader.readLine();
                 ++ key;
             }
             reader.close();
@@ -119,13 +124,57 @@ public class FIBAManager {
                     found.setKey(key);
                     playersFound.add(found);
                 }
+                ++ key;
             }
             reader.close();
         } catch (IOException ignored) {}
         return playersFound;
     }
 
-    public List<Player> searchPlayersInRange(Criteria criteria, int min, int max) {
+    private TreeInterface<Integer, Double> getTreeToSearch(Criteria criteria) {
+        switch(criteria) {
+            case POINTS:
+                return pointsTree;
+            case REBOUNDS:
+                return reboundsTree;
+            case ASSISTS:
+                return assistsTree;
+            case STEALS:
+                return stealsTree;
+            case BLOCKS:
+                return blocksTree;
+            default:
+                return null;
+        }
+    }
+
+    public List<Player> searchPlayersInRange(Criteria criteria, double min, double max) {
+        List<Player> playersFound = new ArrayList<>();
+        List<Integer> keys = getTreeToSearch(criteria).getKeysInRange(min, max);
+        if(!keys.isEmpty()) {
+            Collections.sort(keys);
+            try {
+                reader = new BufferedReader(new FileReader(dataFile));
+                String line;
+                int i = 1;
+                int j = 0;
+                while(j < keys.size() && (line = reader.readLine()) != null) {
+                    if(i == keys.get(j)) {
+                        String[] parts = line.split(SEPARATOR);
+                        Player player = new Player(parts);
+                        player.setKey(keys.get(j));
+                        playersFound.add(player);
+                        ++ j;
+                    }
+                    ++ i;
+                }
+                reader.close();
+            } catch (IOException ignored) {}
+        }
+        return playersFound;
+    }
+
+    public List<Player> searchPlayersByValue(Criteria criteria, double value) {
         List<Player> playersFound = new ArrayList<>();
         return playersFound;
     }

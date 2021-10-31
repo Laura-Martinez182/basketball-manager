@@ -1,5 +1,7 @@
 package tree;
 
+import java.util.List;
+
 public interface TreeInterface<K, V extends Comparable<V>> {
 
     public boolean isEmpty();
@@ -17,6 +19,8 @@ public interface TreeInterface<K, V extends Comparable<V>> {
     public V minimum() throws TreeException;
 
     public V maximum() throws TreeException;
+
+    public List<K> getKeysInRange(V min, V max);
 
     public String preOrder();
 

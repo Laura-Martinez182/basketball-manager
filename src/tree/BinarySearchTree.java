@@ -2,6 +2,9 @@ package tree;
 
 import tree.node.TreeNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterface<K, V> {
 
     private TreeNode<K, V> root;
@@ -192,6 +195,21 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
         return subTree;
     }
 
+    public List<K> getKeysInRange(V min, V max) {
+        List<K> list = new ArrayList<>();
+        return getKeysInRange(list, root, min, max);
+    }
+
+    private List<K> getKeysInRange(List<K> list, TreeNode<K, V> current, V min, V max) {
+        if(current != null) {
+            if(current.value().compareTo(min) >= 0 && current.value().compareTo(max) <= 0) {
+                list.add(current.key());
+            }
+            getKeysInRange(list, current.left(), min, max);
+            getKeysInRange(list, current.right(), min, max);
+        }
+        return list;
+    }
 
     @Override
     public String preOrder() {

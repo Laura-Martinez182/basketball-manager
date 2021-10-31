@@ -4,6 +4,8 @@ import thread.LoadDataThread;
 import tree.BalancedBinaryTree;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FIBAManager {
 
@@ -80,6 +82,25 @@ public class FIBAManager {
             blocksTree.insert(key, blocks);
             reader.close();
         } catch (IOException ignored) {}
+    }
+
+    public List<Player> searchPlayersByName(String name) {
+        List<Player> playersFound = new ArrayList<>();
+        try {
+            reader = new BufferedReader(new FileReader(dataFile));
+            String line = reader.readLine();
+            int key = 1;
+            while((line = reader.readLine()) != null) {
+                String[] parts = line.split(SEPARATOR);
+                if(parts[NAME_INDEX].trim().equalsIgnoreCase(name.trim())) {
+                    Player found = new Player(parts);
+                    found.setKey(key);
+                    playersFound.add(found);
+                }
+            }
+            reader.close();
+        } catch (IOException ignored) {}
+        return playersFound;
     }
 
     public void deletePlayer() {

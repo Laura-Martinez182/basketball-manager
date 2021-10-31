@@ -10,6 +10,7 @@ public class Player {
 	private double assists;
 	private double steals;
 	private double blocks;
+	private int key;
 
 	public Player(String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
 		this.name = name;
@@ -20,6 +21,19 @@ public class Player {
 		this.assists = assists;
 		this.steals = steals;
 		this.blocks = blocks;
+	}
+
+	public Player(String[] attributes) {
+		try {
+			name = attributes[0];
+			age = Integer.parseInt(attributes[1]);
+			team = attributes[2];
+			points = Double.parseDouble(attributes[3]);
+			rebounds = Double.parseDouble(attributes[4]);
+			assists = Double.parseDouble(attributes[5]);
+			steals = Double.parseDouble(attributes[6]);
+			blocks = Double.parseDouble(attributes[7]);
+		} catch (NumberFormatException ignored) {}
 	}
 
 	public String getName() {
@@ -84,6 +98,14 @@ public class Player {
 
 	public void setBlocks(double blocks) {
 		this.blocks = blocks;
+	}
+
+	public int getKey() {
+		return key;
+	}
+
+	public void setKey(int key) {
+		this.key = key;
 	}
 
 	public String getInfoWithSeparator(final String s) {

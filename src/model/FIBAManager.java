@@ -42,7 +42,6 @@ public class FIBAManager {
         if(!dataFile.exists()) {
             dataFile.createNewFile();
         }
-        reader = new BufferedReader(new FileReader(dataFile));
         writer = new PrintWriter(new FileWriter(fileURL, true));
         loadTreesData();
     }
@@ -68,8 +67,18 @@ public class FIBAManager {
         blocksThread.start();
     }
 
-    public void addPlayer() {
-
+    public void addPlayer(String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
+        try {
+            reader = new BufferedReader(new FileReader(dataFile));
+            Player toAdd = new Player(name, age, team, points, rebounds, assists, steals, blocks);
+            writer.println(toAdd.getInfoWithSeparator(SEPARATOR));
+            int key = (int) reader.lines().count();
+            pointsTree.insert(key, points);
+            reboundsTree.insert(key, rebounds);
+            assistsTree.insert(key, assists);
+            stealsTree.insert(key, steals);
+            blocksTree.insert(key, blocks);
+        } catch (FileNotFoundException ignored) {}
     }
 
     public void deletePlayer() {

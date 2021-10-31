@@ -1,16 +1,17 @@
 package model;
 
 public class Player {
+
 	private String name;
 	private int age;
 	private String team;
-	private int points;
-	private int rebounds;
-	private int assists;
-	private int steals;
-	private int blocks;
+	private double points;
+	private double rebounds;
+	private double assists;
+	private double steals;
+	private double blocks;
 
-	public Player(String name, int age, String team, int points, int rebounds, int assists, int steals, int blocks) {
+	public Player(String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
 		this.name = name;
 		this.age = age;
 		this.team = team;
@@ -45,44 +46,48 @@ public class Player {
 		this.team = team;
 	}
 
-	public int getPoints() {
+	public double getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(double points) {
 		this.points = points;
 	}
 
-	public int getRebounds() {
+	public double getRebounds() {
 		return rebounds;
 	}
 
-	public void setRebounds(int rebounds) {
+	public void setRebounds(double rebounds) {
 		this.rebounds = rebounds;
 	}
 
-	public int getAssists() {
+	public double getAssists() {
 		return assists;
 	}
 
-	public void setAssists(int assists) {
+	public void setAssists(double assists) {
 		this.assists = assists;
 	}
 
-	public int getSteals() {
+	public double getSteals() {
 		return steals;
 	}
 
-	public void setSteals(int steals) {
+	public void setSteals(double steals) {
 		this.steals = steals;
 	}
 
-	public int getBlocks() {
+	public double getBlocks() {
 		return blocks;
 	}
 
-	public void setBlocks(int blocks) {
+	public void setBlocks(double blocks) {
 		this.blocks = blocks;
+	}
+
+	public String getInfoWithSeparator(final String s) {
+		return name + s + age + s + team + s + points + s + rebounds + s + assists + s + steals + s + blocks;
 	}
 
 }

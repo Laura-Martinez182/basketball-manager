@@ -24,6 +24,7 @@ public class LoadDataThread extends Thread {
         try {
             br = new BufferedReader(new FileReader(data));
         } catch (IOException ignored) {}
+        System.out.println(br.lines().count());
     }
 
     @Override
@@ -31,14 +32,14 @@ public class LoadDataThread extends Thread {
         String line = null;
         try {
             line = br.readLine();
-            int k = 1;
+            int key = 1;
             while((line = br.readLine()) != null) {
                 String[] parts = line.split(separator);
                 try {
                     double attribute = Double.parseDouble(parts[index]);
-                    tree.insert(k, attribute);
+                    tree.insert(key, attribute);
                 } catch(NumberFormatException | IndexOutOfBoundsException ignored) {}
-                ++ k;
+                ++ key;
             }
         } catch (IOException ignored) {}
 

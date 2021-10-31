@@ -3,12 +3,10 @@ package model;
 import thread.LoadDataThread;
 import tree.BalancedBinaryTree;
 import tree.TreeInterface;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class FIBAManager {
 
@@ -76,7 +74,7 @@ public class FIBAManager {
         try {
             reader = new BufferedReader(new FileReader(dataFile));
             Player toAdd = new Player(name, age, team, points, rebounds, assists, steals, blocks);
-            writer.write("\n"+toAdd.getInfoWithSeparator(SEPARATOR));
+            writer.write(toAdd.getInfoWithSeparator(SEPARATOR) + "\n");
             writer.flush();
             int key = (int) reader.lines().count();
             pointsTree.insert(key, points);
@@ -95,18 +93,19 @@ public class FIBAManager {
             if(header)
                 line = reader.readLine();
             int key = (int) new BufferedReader(new FileReader(dataFile)).lines().count() + 1;
-            while(line != null) {
+            while((line = reader.readLine()) != null) {
                 String[] parts = line.split(s);
                 Player toAdd = new Player(parts);
-                writer.println(toAdd);
+                writer.write(toAdd.getInfoWithSeparator(SEPARATOR) + "\n");
+                writer.flush();
                 pointsTree.insert(key, toAdd.getPoints());
                 reboundsTree.insert(key, toAdd.getRebounds());
                 assistsTree.insert(key, toAdd.getAssists());
                 stealsTree.insert(key, toAdd.getSteals());
                 blocksTree.insert(key, toAdd.getBlocks());
-                line = reader.readLine();
                 ++ key;
             }
+            System.out.println(pointsTree.inOrder());
             reader.close();
         } catch (IOException ignored) {}
     }

@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class FIBAManager {
 
@@ -46,7 +47,7 @@ public class FIBAManager {
             dataFile.createNewFile();
         }
         writer = new PrintWriter(new FileWriter(fileURL, true));
-        //loadTreesData();
+        loadTreesData();
     }
 
     public void setSearchTime(int searchTime) {
@@ -117,7 +118,7 @@ public class FIBAManager {
             int key = 1;
             while((line = reader.readLine()) != null) {
                 String[] parts = line.split(SEPARATOR);
-                if(parts[NAME_INDEX].trim().toLowerCase().contains(name.toLowerCase())) {
+                if(checkNameContent(parts[NAME_INDEX].toLowerCase(), name.toLowerCase().split(" "))) {
                     Player found = new Player(parts);
                     found.setKey(key);
                     playersFound.add(found);
@@ -127,6 +128,14 @@ public class FIBAManager {
             reader.close();
         } catch (IOException ignored) {}
         return playersFound;
+    }
+
+    private boolean checkNameContent(String toCheck, String[] content) {
+        for (String s : content) {
+            if (toCheck.contains(s))
+                return true;
+        }
+        return false;
     }
 
     private TreeInterface<Integer, Double> getTreeToSearch(Criteria criteria) {
@@ -196,6 +205,10 @@ public class FIBAManager {
             } catch (IOException ignored) {}
         }
         return playersFound;
+    }
+
+    public void changePlayer(int key, String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
+
     }
 
     public void deletePlayer(int key) {

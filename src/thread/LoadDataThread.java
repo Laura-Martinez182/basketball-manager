@@ -24,7 +24,6 @@ public class LoadDataThread extends Thread {
         try {
             br = new BufferedReader(new FileReader(data));
         } catch (IOException ignored) {}
-        System.out.println(br.lines().count());
     }
 
     @Override

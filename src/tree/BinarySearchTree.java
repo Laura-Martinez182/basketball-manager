@@ -45,8 +45,10 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
     }
 
     @Override
-    public void insert(K k, V v) {
+    public void insert(K k, V v) throws TreeException {
         TreeNode<K, V> toAdd = new TreeNode<>(k, v);
+        if(containsKey(k))
+            throw new TreeException("Could not insert the node because the key is already in use");
         if(root == null)
             root = toAdd;
         else

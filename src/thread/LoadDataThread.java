@@ -1,6 +1,7 @@
 package thread;
 
 import tree.BinarySearchTree;
+import tree.TreeException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,7 +38,7 @@ public class LoadDataThread extends Thread {
                     double attribute = Double.parseDouble(parts[index]);
                     tree.insert(key, attribute);
                     ++ key;
-                } catch(NumberFormatException | IndexOutOfBoundsException ignored) {}
+                } catch(NumberFormatException | IndexOutOfBoundsException | TreeException ignored) {}
             }
         } catch (IOException ignored) {}
     }

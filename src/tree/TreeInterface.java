@@ -8,7 +8,7 @@ public interface TreeInterface<K, V extends Comparable<V>> {
 
     public V root() throws TreeException;
 
-    public void insert(K k, V v);
+    public void insert(K k, V v) throws TreeException;
 
     public boolean containsKey(K k);
 

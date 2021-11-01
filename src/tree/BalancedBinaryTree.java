@@ -49,7 +49,7 @@ public class BalancedBinaryTree<K, V extends Comparable<V>> extends BinarySearch
         }
     }
 
-    private int balanceFactor(TreeNode<K, V> subTree) {
+    public int balanceFactor(TreeNode<K, V> subTree) {
         int balanceFactor = 0;
         if(subTree != null) {
             int rightBF = calcHeight(subTree.right());

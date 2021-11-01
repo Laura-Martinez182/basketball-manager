@@ -40,7 +40,6 @@ public class LoadDataThread extends Thread {
                 } catch(NumberFormatException | IndexOutOfBoundsException ignored) {}
             }
         } catch (IOException ignored) {}
-
     }
 
 }

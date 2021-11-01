@@ -267,9 +267,9 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
     private String posOrder(TreeNode<K, V> aux) {
         String info = "";
         if(aux != null) {
+        	info += posOrder(aux.left());
             info += posOrder(aux.right());
             info += aux.value().toString() + "\n";
-            info += posOrder(aux.left());
         }
         return info;
     }

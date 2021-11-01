@@ -50,7 +50,7 @@ public class BSTTest {
 		assertTrue(tree.containsKey(player3.getKey()));
 		assertTrue(tree.containsKey(player4.getKey()));
 	
-	}
+	}	
 	
 	@Test
 	public void testRemove() throws TreeException{
@@ -66,11 +66,100 @@ public class BSTTest {
 		tree.insert(player4.getKey(), player4.getPoints());
 
 		assertFalse(tree.isEmpty());
+		//Method height tested
 		assertEquals(3, tree.height());
 		
 		tree.remove(player4.getKey());
 		assertEquals(2, tree.height());
+	}
 	
+	@Test
+	public void testMinimum() throws TreeException{
+		BinarySearchTree<Integer, Double> tree = new BinarySearchTree<>();
+		Player player1 = new Player("Lanita", 25, "Guam", 213, 847, 100, 78, 352);
+		Player player2 = new Player("Carlos", 27, "Guam", 203, 842, 111, 76, 302);
+		Player player3 = new Player("Juan", 35, "Arg", 217, 247, 150, 58, 152);
+		Player player4 = new Player("Link", 37, "Mex", 313, 507, 230, 88, 162);
+
+		tree.insert(player1.getKey(), player1.getPoints());
+		tree.insert(player2.getKey(), player2.getPoints());
+		tree.insert(player3.getKey(), player3.getPoints());
+		tree.insert(player4.getKey(), player4.getPoints());
+
+		assertFalse(tree.isEmpty());
+
+		assertEquals(203,tree.minimum());	
+	}
+	
+	@Test
+	public void testMaximum() throws TreeException{
+		BinarySearchTree<Integer, Double> tree = new BinarySearchTree<>();
+		Player player1 = new Player("Lanita", 25, "Guam", 213, 847, 100, 78, 352);
+		Player player2 = new Player("Carlos", 27, "Guam", 203, 842, 111, 76, 302);
+		Player player3 = new Player("Juan", 35, "Arg", 217, 247, 150, 58, 152);
+		Player player4 = new Player("Link", 37, "Mex", 313, 507, 230, 88, 162);
+
+		tree.insert(player1.getKey(), player1.getPoints());
+		tree.insert(player2.getKey(), player2.getPoints());
+		tree.insert(player3.getKey(), player3.getPoints());
+		tree.insert(player4.getKey(), player4.getPoints());
+
+		assertFalse(tree.isEmpty());
+
+		assertEquals(313,tree.maximum());	
+	}
+	
+	@Test
+	public void testPreOrder() throws TreeException{
+		BinarySearchTree<Integer, Double> tree = new BinarySearchTree<>();
+		Player player1 = new Player("Lanita", 25, "Guam", 213, 847, 100, 78, 352);
+		Player player2 = new Player("Carlos", 27, "Guam", 203, 842, 111, 76, 302);
+		Player player3 = new Player("Juan", 35, "Arg", 217, 247, 150, 58, 152);
+		Player player4 = new Player("Link", 37, "Mex", 313, 507, 230, 88, 162);
+
+		tree.insert(player1.getKey(), player1.getPoints());
+		tree.insert(player2.getKey(), player2.getPoints());
+		tree.insert(player3.getKey(), player3.getPoints());
+		tree.insert(player4.getKey(), player4.getPoints());
+
+		String info = player1.getPoints() + "\n" + player2.getPoints() + "\n" + player3.getPoints() + "\n" + player4.getPoints()+ "\n";
+
+		assertEquals(info, tree.preOrder());	
 	}
 
+	@Test
+	public void testInOrder() throws TreeException{
+		BinarySearchTree<Integer, Double> tree = new BinarySearchTree<>();
+		Player player1 = new Player("Lanita", 25, "Guam", 213, 847, 100, 78, 352);
+		Player player2 = new Player("Carlos", 27, "Guam", 203, 842, 111, 76, 302);
+		Player player3 = new Player("Juan", 35, "Arg", 217, 247, 150, 58, 152);
+		Player player4 = new Player("Link", 37, "Mex", 313, 507, 230, 88, 162);
+
+		tree.insert(player1.getKey(), player1.getPoints());
+		tree.insert(player2.getKey(), player2.getPoints());
+		tree.insert(player3.getKey(), player3.getPoints());
+		tree.insert(player4.getKey(), player4.getPoints());
+
+		String info = player2.getPoints() + "\n" + player1.getPoints() + "\n" + player3.getPoints() + "\n" + player4.getPoints()+ "\n";
+
+		assertEquals(info, tree.inOrder());	
+	}
+	
+	@Test
+	public void testPosOrder() throws TreeException{
+		BinarySearchTree<Integer, Double> tree = new BinarySearchTree<>();
+		Player player1 = new Player("Lanita", 25, "Guam", 213, 847, 100, 78, 352);
+		Player player2 = new Player("Carlos", 27, "Guam", 203, 842, 111, 76, 302);
+		Player player3 = new Player("Juan", 35, "Arg", 217, 247, 150, 58, 152);
+		Player player4 = new Player("Link", 37, "Mex", 313, 507, 230, 88, 162);
+
+		tree.insert(player1.getKey(), player1.getPoints());
+		tree.insert(player2.getKey(), player2.getPoints());
+		tree.insert(player3.getKey(), player3.getPoints());
+		tree.insert(player4.getKey(), player4.getPoints());
+
+		String info = player2.getPoints() + "\n" + player4.getPoints() + "\n" + player3.getPoints() + "\n" + player1.getPoints()+ "\n";
+
+		assertEquals(info, tree.posOrder());	
+	}
 }

@@ -171,15 +171,19 @@ public class MainGUIController {
     @FXML
     public void searchPlayers(ActionEvent event) {
         RadioButton option = (RadioButton) searchOpt.getSelectedToggle();
+        List<Player> playersList;
         resultsList.getItems().clear();
         if(option != null) {
             if(option == nameRB) {
                 String name = nameSearchTxt.getText();
-                if(!name.isEmpty())
-                    setResultsListElements(manager.searchPlayersByName(name));
-                else
+                if(!name.isEmpty()) {
+                    playersList = manager.searchPlayersByName(name);
+                    setResultsListElements(playersList);
+                    nameSearchTxt.clear();
+                    showInformationAlert(null, "Se han encontrado " + playersList.size() + " resultados\n" +
+                            "Tiempo de búsqueda: " + manager.getSearchTime() + " ms" , null);
+                } else
                     showInformationAlert(null, "Debe llenar el campo", null);
-                nameSearchTxt.clear();
             } else {
                 Criteria criteria = criteriaCB.getValue();
                 if(criteria == null) {
@@ -193,9 +197,12 @@ public class MainGUIController {
                         if (min > max || min < 0.0 || max < 0.0) {
                             showInformationAlert(null, "Revise los valores de las casillas", null);
                         } else {
-                            setResultsListElements(manager.searchPlayersInRange(criteria, min, max));
+                            playersList = manager.searchPlayersInRange(criteria, min, max);
+                            setResultsListElements(playersList);
                             minTxt.clear();
                             maxTxt.clear();
+                            showInformationAlert(null, "Se han encontrado " + playersList.size() + " resultados\n" +
+                                    "Tiempo de búsqueda: " + manager.getSearchTime() + " ms" , null);
                         }
                     } catch (NumberFormatException e) {
                         showInformationAlert(null, "Los valores deben ser números", null);
@@ -204,8 +211,11 @@ public class MainGUIController {
                     try {
                         double value = Double.parseDouble(equalTxt.getText());
                         if (value > 0) {
-                            setResultsListElements(manager.searchPlayersByValue(criteria, value));
+                            playersList = manager.searchPlayersByValue(criteria, value);
+                            setResultsListElements(playersList);
                             equalTxt.clear();
+                            showInformationAlert(null, "Se han encontrado " + playersList.size() + " resultados\n" +
+                                    "Tiempo de búsqueda: " + manager.getSearchTime() + " ms" , null);
                         }
                     } catch (NumberFormatException e) {
                         showInformationAlert(null, "El valor debe ser un número", null);

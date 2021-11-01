@@ -36,8 +36,8 @@ public class LoadDataThread extends Thread {
                 try {
                     double attribute = Double.parseDouble(parts[index]);
                     tree.insert(key, attribute);
+                    ++ key;
                 } catch(NumberFormatException | IndexOutOfBoundsException ignored) {}
-                ++ key;
             }
         } catch (IOException ignored) {}
 

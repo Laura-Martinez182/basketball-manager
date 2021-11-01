@@ -252,7 +252,7 @@ public class FIBAManager {
                     removeAndAdd(blocksTree, key, blocks);
             }
             return true;
-        } catch(IOException ignored) {
+        } catch(IOException e) {
             return false;
         }
     }
@@ -264,8 +264,45 @@ public class FIBAManager {
         } catch(TreeException ignored) {}
     }
 
-    public void deletePlayer(int key) {
+    public boolean deletePlayer(int key) {
+        try{
+            reader = new BufferedReader(new FileReader(dataFile));
+            StringBuffer sb = new StringBuffer();
+            String line;
+            int i = 1;
+            boolean found = false;
+            List<Integer> keysToChange = new ArrayList<>();
+            while((line = reader.readLine()) != null) {
+                if(i != key) {
+                    sb.append(line);
+                    sb.append("\n");
+                    if(found)
+                        keysToChange.add(i);
+                } else
+                    found = true;
+                ++ i;
+            }
+            changeKeys(keysToChange);
+            reader.close();
+            FileOutputStream fos = new FileOutputStream(dataFile);
+            fos.write(sb.toString().getBytes());
+            fos.close();
+            return true;
+        } catch(IOException e) {
+            return false;
+        }
+    }
 
+    private void changeKeys(List<Integer> oldKeys) {
+        for(int i = 0; i < oldKeys.size(); i ++) {
+            int o = oldKeys.get(i);
+            int n = o - 1;
+            pointsTree.changeKey(o, n);
+            reboundsTree.changeKey(o, n);
+            assistsTree.changeKey(o, n);
+            stealsTree.changeKey(o, n);
+            blocksTree.changeKey(o, n);
+        }
     }
 
 }

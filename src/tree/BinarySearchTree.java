@@ -229,6 +229,12 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
         return list;
     }
 
+    public void changeKey(K o, K n) {
+        TreeNode<K, V> node = searchNodeByKey(root, o);
+        if(node != null)
+            node.setKey(n);
+    }
+
     @Override
     public String preOrder() {
         return preOrder(root);

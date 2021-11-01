@@ -215,7 +215,7 @@ public class FIBAManager {
         return playersFound;
     }
 
-    public void changePlayer(Player old, String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
+    public boolean changePlayer(Player old, String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
         int key = old.getKey();
         Player player = new Player(name, age, team, points, rebounds, assists, steals, blocks);
         String newLine = player.getInfoWithSeparator(SEPARATOR);
@@ -251,7 +251,10 @@ public class FIBAManager {
                 if(blocks != old.getBlocks())
                     removeAndAdd(blocksTree, key, blocks);
             }
-        } catch(IOException ignored) {}
+            return true;
+        } catch(IOException ignored) {
+            return false;
+        }
     }
 
     private void removeAndAdd(TreeInterface<Integer, Double> tree, int key, double value) {

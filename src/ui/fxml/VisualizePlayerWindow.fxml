@@ -104,7 +104,7 @@
                         </HBox>
                     </children>
                 </VBox>
-                <Button fx:id="editBtn" layoutX="103.0" layoutY="362.0" mnemonicParsing="false" text="EDITAR">
+                <Button fx:id="editBtn" layoutX="103.0" layoutY="362.0" mnemonicParsing="false" onAction="#changePlayerData" text="EDITAR">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>

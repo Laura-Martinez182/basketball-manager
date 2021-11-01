@@ -97,7 +97,6 @@ public class EmergentGUIController {
     }
 
     public void showPlayerInformationWindow(boolean edit, Player player) throws IOException {
-        System.out.println(player.getKey());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FOLDER + "VisualizePlayerWindow.fxml"));
         fxmlLoader.setController(this);
         Parent root = fxmlLoader.load();
@@ -136,6 +135,26 @@ public class EmergentGUIController {
 
     @FXML
     public void changePlayerData(ActionEvent event) {
+        String name = nameTxt.getText();
+        String team = teamTxt.getText();
+        try {
+            int age = Integer.parseInt(ageTxt.getText());
+            double points = Double.parseDouble(pointsTxt.getText());
+            double rebounds = Double.parseDouble(reboundsTxt.getText());
+            double assists = Double.parseDouble(assistsTxt.getText());
+            double steals = Double.parseDouble(stealsTxt.getText());
+            double blocks = Double.parseDouble(blocksTxt.getText());
+            if(!name.isEmpty() && !team.isEmpty() && age > 0 && points > 0 && rebounds > 0 && assists > 0 && steals > 0 && blocks > 0) {
+                if(manager.changePlayer(current, name, age, team, points, rebounds, assists, steals, blocks))
+                    showInformationAlert(null, "Se realizo el cambio exitosamente", null);
+                else
+                    showInformationAlert(null, "Ocurrio un error, no se pudo realizar el cambio", null);
+            } else {
+                showInformationAlert(null, "No se pudo hacer el cambio, revise los campos", null);
+            }
+        } catch(NumberFormatException e) {
+            showInformationAlert(null, "Los campos numericos no pueden contener caracteres o estar vacíos", null);
+        }
         current = null;
         closeEmergentWindow(event);
     }

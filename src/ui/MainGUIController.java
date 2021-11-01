@@ -7,12 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Criteria;
 import model.FIBAManager;
 import model.Player;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -64,6 +65,12 @@ public class MainGUIController {
     private TextField equalTxt;
     @FXML
     private ListView<Player> resultsList;
+    @FXML
+    private MenuItem visualize;
+    @FXML
+    private MenuItem edit;
+    @FXML
+    private MenuItem delete;
 
     public MainGUIController(FIBAManager manager, EmergentGUIController EGC) {
         this.manager = manager;
@@ -125,7 +132,7 @@ public class MainGUIController {
         mainPane.setCenter(root);
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setTitle("");
-        stage.setHeight(515.0);
+        stage.setHeight(535.0);
         stage.setWidth(495.0);
         stage.setResizable(false);
         criteriaCB.getItems().addAll(Criteria.values());
@@ -230,6 +237,45 @@ public class MainGUIController {
     private void setResultsListElements(List<Player> players) {
         ObservableList<Player> list = FXCollections.observableList(players);
         resultsList.setItems(list);
+    }
+
+    @FXML
+    public void listenMouseEvent(MouseEvent me) {
+        visualize.setDisable(false);
+        edit.setDisable(false);
+        delete.setDisable(false);
+        if(me.getButton() == MouseButton.SECONDARY) {
+            Player selection = resultsList.getSelectionModel().getSelectedItem();
+            if(selection == null) {
+                visualize.setDisable(true);
+                edit.setDisable(true);
+                delete.setDisable(true);
+            }
+        }
+    }
+
+    @FXML
+    public void listenVisualizePlayer(ActionEvent event) throws IOException {
+        Player player = resultsList.getSelectionModel().getSelectedItem();
+        if(player != null) {
+            EGC.showPlayerInformationWindow(false, player);
+        }
+    }
+
+    @FXML
+    public void listenEditPlayer(ActionEvent event) throws IOException {
+        Player player = resultsList.getSelectionModel().getSelectedItem();
+        if(player != null) {
+            EGC.showPlayerInformationWindow(true, player);
+        }
+    }
+
+    @FXML
+    public void listenDeletePlayer(ActionEvent event) {
+        Player player = resultsList.getSelectionModel().getSelectedItem();
+        if(player != null) {
+
+        }
     }
 
     private void showInformationAlert(String title,String msg,String header){

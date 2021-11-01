@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <Pane prefHeight="400.0" prefWidth="495.0" BorderPane.alignment="CENTER">
          <children>
@@ -50,14 +61,14 @@
                            </font>
                         </RadioButton>
                         <Pane prefHeight="43.0" prefWidth="11.0" />
-                        <Label prefHeight="20.0" prefWidth="68.0" text="Menor a:">
+                        <Label prefHeight="20.0" prefWidth="68.0" text="Mayor a:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                         <TextField fx:id="minTxt" prefHeight="25.0" prefWidth="50.0" />
                         <Pane prefHeight="43.0" prefWidth="40.0" />
-                        <Label prefHeight="20.0" prefWidth="68.0" text="Mayor a:">
+                        <Label prefHeight="20.0" prefWidth="68.0" text="Menor a:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -101,7 +112,17 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="193.0" prefWidth="457.0">
                      <children>
-                        <ListView fx:id="resultsList" prefHeight="187.0" prefWidth="350.0" />
+                        <ListView fx:id="resultsList" onMouseClicked="#listenMouseEvent" prefHeight="187.0" prefWidth="350.0">
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                   <MenuItem fx:id="visualize" onAction="#listenVisualizePlayer" mnemonicParsing="false" text="Visualizar" />
+                                  <MenuItem fx:id="edit" onAction="#listenEditPlayer" mnemonicParsing="false" text="Editar" />
+                                    <MenuItem fx:id="delete" onAction="#listenDeletePlayer" mnemonicParsing="false" text="Eliminar" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </ListView>
                      </children>
                   </HBox>
                </children>

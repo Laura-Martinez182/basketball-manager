@@ -2,6 +2,7 @@ package model;
 
 import thread.LoadDataThread;
 import tree.BalancedBinaryTree;
+import tree.TreeException;
 import tree.TreeInterface;
 import java.io.*;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class FIBAManager {
         return searchTime;
     }
 
-    private void loadTreesData() throws IOException {
+    private void loadTreesData() {
         LoadDataThread pointsThread = new LoadDataThread(pointsTree, dataFile, POINTS_INDEX, SEPARATOR);
         LoadDataThread reboundsThread = new LoadDataThread(reboundsTree, dataFile, REBOUNDS_INDEX, SEPARATOR);
         LoadDataThread assistsThread = new LoadDataThread(assistsTree, dataFile, ASSISTS_INDEX, SEPARATOR);
@@ -214,8 +215,50 @@ public class FIBAManager {
         return playersFound;
     }
 
-    public void changePlayer(int key, String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
+    public void changePlayer(Player old, String name, int age, String team, double points, double rebounds, double assists, double steals, double blocks) {
+        int key = old.getKey();
+        Player player = new Player(name, age, team, points, rebounds, assists, steals, blocks);
+        String newLine = player.getInfoWithSeparator(SEPARATOR);
+        try {
+            reader = new BufferedReader(new FileReader(dataFile));
+            StringBuffer sb = new StringBuffer();
+            String line;
+            int i = 1;
+            boolean found = false;
+            while((line = reader.readLine()) != null) {
+                if(i == key) {
+                    sb.append(newLine);
+                    found = true;
+                } else {
+                    sb.append(line);
+                }
+                sb.append("\n");
+                ++ i;
+            }
+            reader.close();
+            FileOutputStream fos = new FileOutputStream(dataFile);
+            fos.write(sb.toString().getBytes());
+            fos.close();
+            if(found) {
+                if(points != old.getPoints())
+                    removeAndAdd(pointsTree, key, points);
+                if(rebounds != old.getRebounds())
+                    removeAndAdd(reboundsTree, key, rebounds);
+                if(assists != old.getAssists())
+                    removeAndAdd(assistsTree, key, assists);
+                if(steals != old.getSteals())
+                    removeAndAdd(stealsTree, key, steals);
+                if(blocks != old.getBlocks())
+                    removeAndAdd(blocksTree, key, blocks);
+            }
+        } catch(IOException ignored) {}
+    }
 
+    private void removeAndAdd(TreeInterface<Integer, Double> tree, int key, double value) {
+        try {
+            tree.remove(key);
+            tree.insert(key, value);
+        } catch(TreeException ignored) {}
     }
 
     public void deletePlayer(int key) {

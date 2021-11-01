@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import model.Player;
 import tree.BalancedBinaryTree;
-import tree.BinarySearchTree;
+
 import tree.TreeException;
 
 public class AVLTest {

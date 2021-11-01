@@ -3,7 +3,7 @@ package model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -72,16 +72,16 @@ public class FIBATest {
 	}
 	
 	@Test
-	/*public void testDeletePlayer() throws IOException {
+	public void testDeletePlayer() throws IOException {
 		setupScenary1();
 		
-		fiba.addPlayer("Lanita", 25, "Guam", 213, 847, 100, 78, 352);
 		Player p1 = new Player("Lanita", 25, "Guam", 213, 847, 100, 78, 352);
-		fiba.addPlayer("Samuel", 33, "Col", 100, 300, 200, 90, 123);
+		p1.setKey(1);
+		
 		Player p2 = new Player("Samuel", 33, "Col", 100, 300, 200, 90, 123);
 		
-		assertTrue(fiba.deletePlayer(p1.getKey()));*/
-
+		assertTrue(fiba.deletePlayer(p1.getKey()));
+		assertFalse(fiba.deletePlayer(p2.getKey()));
 	}
 
 }

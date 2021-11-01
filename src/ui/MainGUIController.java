@@ -300,6 +300,9 @@ public class MainGUIController {
         feedBack.setTitle(title);
         feedBack.setHeaderText(header);
         feedBack.setContentText(msg);
+        DialogPane dp = feedBack.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        dp.getStyleClass().add("application");
         feedBack.showAndWait();
     }
 

@@ -59,6 +59,7 @@ public class EmergentGUIController {
         fxmlLoader.setController(this);
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, null);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         Stage form = new Stage();
         form.initModality(Modality.APPLICATION_MODAL);
         form.setScene(scene);
@@ -101,6 +102,7 @@ public class EmergentGUIController {
         fxmlLoader.setController(this);
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, null);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         Stage form = new Stage();
         form.initModality(Modality.APPLICATION_MODAL);
         form.setScene(scene);
@@ -164,6 +166,9 @@ public class EmergentGUIController {
         feedBack.setTitle(title);
         feedBack.setHeaderText(header);
         feedBack.setContentText(msg);
+        DialogPane dp = feedBack.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        dp.getStyleClass().add("application");
         feedBack.showAndWait();
     }
 

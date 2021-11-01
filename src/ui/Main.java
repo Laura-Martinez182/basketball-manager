@@ -33,8 +33,9 @@ public class Main extends Application {
         fxmlLoader.setController(MGC);
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, null);
-        window.setTitle("");
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         window.setScene(scene);
+        window.setTitle("");
         window.show();
     }
 

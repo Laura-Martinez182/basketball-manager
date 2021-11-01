@@ -1,0 +1,109 @@
+.root{
+ -fx-background-color: #434343;
+}
+.text-field{
+-fx-background-color: #333333;
+-fx-text-fill:#FFFFFF;
+}
+.context-menu{
+-fx-background-color: #333333;
+-fx-text-fill:#FFFFFF;
+}
+.radio-button {
+-fx-font-size:13;
+-fx-font-family:"Consolas";
+-fx-font-weight:bold;
+-fx-text-fill:#FFFFFF;
+-fx-text-alignment:center;
+}
+.choice-box {
+  -fx-background-color: #222222;
+  -fx-mark-color: #222222;
+}
+.choice-box .context-menu {
+-fx-background-color: #222222;
+}
+.choice-box .menu-item:focused {
+-fx-background-color: #A94CC9;
+}
+.choice-box .menu-item > .label {
+-fx-text-fill: white;
+}
+.choice-box .menu-item:focused > .label {
+-fx-text-fill: #222222;
+}
+.choice-box > .label{
+-fx-text-fill: white;
+}
+.text-area .content{
+-fx-background-color: #333333;
+-fx-text-fill: #FFFFFF;
+}
+.text-area{
+-fx-text-fill:#FFFFFF;
+}
+.label{
+-fx-font-size:13;
+-fx-font-family:"Consolas";
+-fx-font-weight:bold;
+-fx-text-fill:#FFFFFF;
+-fx-text-alignment:left;
+}
+.button{
+-fx-background-color:#A94CC9;
+-fx-text-fill: #222222;
+-fx-font-weight:bold;
+-fx-text-alignment:center;
+-fx-font-family:"Avenir Next LT Pro";
+}
+#lpName{
+-fx-font-size:20;
+-fx-font-family:"Times New Roman";
+-fx-text-fill:#FFE24E;
+}
+#titles{
+-fx-font-size:20;
+-fx-font-family:"Times New Roman";
+-fx-text-fill:#FFE24E;
+}
+#code{
+-fx-font-size:20;
+-fx-font-family:"Times New Roman";
+-fx-text-fill:#FFE24E;
+}
+#listTitle{
+-fx-font-size:20;
+-fx-font-family:"Times New Roman";
+-fx-text-fill:#FFE24E;
+}
+.list-view {
+    -fx-background-color: #333333;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #434343;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #434343;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+}
+.list-view .label {
+    -fx-text-fill: white;
+}
+.dialog-pane {
+    -fx-background-color: #434343;
+    -fx-text-fill: white;
+}
+.dialog-pane .button {
+    -fx-background-color: #A94CC9;
+    -fx-text-fill: black;
+}
+.dialog-pane:header .header-panel {
+    -fx-background-color: #434343;
+    -fx-text-fill: white;
+}

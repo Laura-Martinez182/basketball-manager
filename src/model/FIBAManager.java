@@ -164,6 +164,7 @@ public class FIBAManager {
     }
 
     public List<Player> searchPlayersInRange(Criteria criteria, double min, double max) {
+        searchTime = System.nanoTime();
         List<Player> playersFound = new ArrayList<>();
         List<Integer> keys = getTreeToSearch(criteria).getKeysInRange(min, max);
         if(!keys.isEmpty()) {
@@ -186,10 +187,12 @@ public class FIBAManager {
                 reader.close();
             } catch (IOException ignored) {}
         }
+        searchTime = (long) ((System.nanoTime() - searchTime) / 1e+6);
         return playersFound;
     }
 
     public List<Player> searchPlayersByValue(Criteria criteria, double value) {
+        searchTime = System.nanoTime();
         List<Player> playersFound = new ArrayList<>();
         List<Integer> keys = getTreeToSearch(criteria).getKeysEqualTo(value);
         if(!keys.isEmpty()) {
@@ -212,6 +215,7 @@ public class FIBAManager {
                 reader.close();
             } catch (IOException ignored) {}
         }
+        searchTime = (long) ((System.nanoTime() - searchTime) / 1e+6);
         return playersFound;
     }
 

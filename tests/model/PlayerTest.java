@@ -67,4 +67,61 @@ public class PlayerTest {
 		player.setName(newName);
 		assertEquals(newName, player.getName());
 	}
+	
+	@Test
+	public void testSetAge() {
+		setupScenary1();
+		int newAge = 26;
+		player.setAge(newAge);
+		assertEquals(newAge, player.getAge());
+	}
+	
+	@Test
+	public void testsetTeam() {
+		setupScenary1();
+		String newTeam = "Arg";
+		player.setTeam(newTeam);
+		assertEquals(newTeam, player.getTeam());
+	}
+	
+	@Test
+	public void testsetPoints() {
+		setupScenary1();
+		Double newPoints = 111.0;
+		player.setPoints(newPoints);
+		assertEquals(newPoints, player.getPoints());
+	}
+	
+	@Test
+	public void testsetRebounds() {
+		setupScenary1();
+		Double newRebounds = 234.0;
+		player.setRebounds(newRebounds);
+		assertEquals(newRebounds, player.getRebounds());
+	}
+	
+	@Test
+	public void testsetAssists() {
+		setupScenary1();
+		Double newAssists = 294.0;
+		player.setAssists(newAssists);
+		assertEquals(newAssists, player.getAssists());
+	}
+	
+	@Test
+	public void testsetSteals() {
+		setupScenary1();
+		Double newSteals = 114.0;
+		player.setSteals(newSteals);
+		assertEquals(newSteals, player.getSteals());
+	}
+	
+	@Test
+	public void testsetBlocks() {
+		setupScenary1();
+		Double newBlocks = 14.0;
+		player.setBlocks(newBlocks);
+		assertEquals(newBlocks, player.getBlocks());
+	}
+	
 }

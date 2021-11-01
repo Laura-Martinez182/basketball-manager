@@ -161,7 +161,7 @@ public class EmergentGUIController {
         closeEmergentWindow(event);
     }
 
-    private void showInformationAlert(String title,String msg,String header){
+    private void showInformationAlert(String title, String msg, String header){
         Alert feedBack = new Alert(Alert.AlertType.INFORMATION);
         feedBack.setTitle(title);
         feedBack.setHeaderText(header);

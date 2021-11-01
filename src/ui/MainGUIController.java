@@ -17,6 +17,7 @@ import model.FIBAManager;
 import model.Player;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class MainGUIController {
 
@@ -291,11 +292,26 @@ public class MainGUIController {
     public void listenDeletePlayer(ActionEvent event) {
         Player player = resultsList.getSelectionModel().getSelectedItem();
         if(player != null) {
-
+            if(showConfirmationAlert(null, "¿Está seguro que desea eliminar el jugador elegido?", null)) {
+                if(manager.deletePlayer(player.getKey())) {
+                    resultsList.getItems().remove(player);
+                    checkKeys(resultsList.getItems(), player);
+                    showInformationAlert(null, "Se ha eliminado al jugador exitosamente", null);
+                }
+                else
+                    showInformationAlert(null, "Ocurrio un error, no se pudo eliminar al jugador", null);
+            }
         }
     }
 
-    private void showInformationAlert(String title,String msg,String header){
+    private void checkKeys(List<Player> list, Player removed) {
+        for(Player p : list) {
+            if(p.getKey() > removed.getKey())
+                p.setKey(p.getKey() - 1);
+        }
+    }
+
+    private void showInformationAlert(String title, String msg, String header){
         Alert feedBack = new Alert(Alert.AlertType.INFORMATION);
         feedBack.setTitle(title);
         feedBack.setHeaderText(header);
@@ -304,6 +320,21 @@ public class MainGUIController {
         dp.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         dp.getStyleClass().add("application");
         feedBack.showAndWait();
+    }
+
+    private boolean showConfirmationAlert(String title, String msg, String header) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(msg);
+        ButtonType accept = new ButtonType("Aceptar");
+        ButtonType cancel = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(accept, cancel);
+        DialogPane dp = alert.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        dp.getStyleClass().add("application");
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == accept;
     }
 
 }

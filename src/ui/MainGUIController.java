@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Criteria;
 import model.FIBAManager;
@@ -26,6 +27,13 @@ public class MainGUIController {
 
     @FXML
     private BorderPane mainPane;
+
+    @FXML
+    private Button registerBtn;
+    @FXML
+    private Button searchBtn;
+    @FXML
+    private VBox vbox;
 
     //Register Player
     @FXML
@@ -77,20 +85,25 @@ public class MainGUIController {
         this.EGC = EGC;
     }
 
-    public void showInitialScene() {
-
+    @FXML
+    public void showImportPlayersScene(ActionEvent event) throws IOException {
+        EGC.showImportPlayersDataScene();
     }
 
-    public void showRegisterPlayerScene() throws IOException {
+    @FXML
+    public void showRegisterPlayerScene(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FOLDER + "RegisterPlayerWindow.fxml"));
         fxmlLoader.setController(this);
         Parent root = fxmlLoader.load();
         mainPane.setCenter(root);
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setTitle("");
-        stage.setHeight(425.0);
-        stage.setWidth(300.0);
+        vbox.setPrefWidth(130.0);
+        stage.setHeight(430.0);
+        stage.setWidth(425.0);
         stage.setResizable(false);
+        registerBtn.setDisable(true);
+        searchBtn.setDisable(false);
     }
 
     @FXML
@@ -125,16 +138,20 @@ public class MainGUIController {
         }
     }
 
-    public void showViewPlayersScene() throws IOException {
+    @FXML
+    public void showViewPlayersScene(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FOLDER + "SearchPlayerWindow.fxml"));
         fxmlLoader.setController(this);
         Parent root = fxmlLoader.load();
         mainPane.setCenter(root);
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setTitle("");
-        stage.setHeight(535.0);
-        stage.setWidth(495.0);
+        vbox.setPrefWidth(130.0);
+        stage.setHeight(540.0);
+        stage.setWidth(600.0);
         stage.setResizable(false);
+        registerBtn.setDisable(false);
+        searchBtn.setDisable(true);
         criteriaCB.getItems().addAll(Criteria.values());
         criteriaCB.setDisable(true);
         nameSearchTxt.setDisable(true);

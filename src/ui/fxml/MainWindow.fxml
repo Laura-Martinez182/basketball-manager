@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="389.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox fx:id="vbox" alignment="CENTER" prefHeight="300.0" prefWidth="388.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#showImportPlayersScene" prefHeight="38.0" prefWidth="100.0" text="Importar">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Pane prefHeight="50.0" prefWidth="100.0" />
+            <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#showRegisterPlayerScene" prefHeight="38.0" prefWidth="100.0" text="Registro">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Pane prefHeight="50.0" prefWidth="100.0" />
+            <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#showViewPlayersScene" prefHeight="38.0" prefWidth="100.0" text="Búsqueda">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

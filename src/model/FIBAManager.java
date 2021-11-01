@@ -287,13 +287,18 @@ public class FIBAManager {
                     found = true;
                 ++ i;
             }
+            pointsTree.remove(key);
+            reboundsTree.remove(key);
+            assistsTree.remove(key);
+            stealsTree.remove(key);
+            blocksTree.remove(key);
             changeKeys(keysToChange);
             reader.close();
             FileOutputStream fos = new FileOutputStream(dataFile);
             fos.write(sb.toString().getBytes());
             fos.close();
             return true;
-        } catch(IOException e) {
+        } catch(IOException | TreeException e) {
             return false;
         }
     }

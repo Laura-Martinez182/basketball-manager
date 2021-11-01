@@ -1,5 +1,6 @@
 package ui;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,11 +88,16 @@ public class EmergentGUIController {
         RadioButton selected = (RadioButton) headerOpt.getSelectedToggle();
         boolean header = selected.getText().equals("SI");
         if(!path.isEmpty() && !separator.isEmpty()) {
-            if(manager.addPlayer(header, path, separator)) {
-                showInformationAlert(null, "Se han importado los datos correctamente", null);
-                closeEmergentWindow(event);
-            } else
-                showInformationAlert(null, "Ha ocurrido un error al momento de importar", null);
+            showInformationAlert(null, "Se está importando la información...", null);
+            Runnable r = () -> {
+                if(manager.addPlayer(header, path, separator)) {
+                    Platform.runLater(() -> showInformationAlert(null, "Se han importado los datos correctamente", null));
+                } else
+                    Platform.runLater(() -> showInformationAlert(null, "Ha ocurrido un error al momento de importar", null));
+            };
+            Thread t = new Thread(r);
+            t.start();
+            closeEmergentWindow(event);
         } else {
             showInformationAlert(null, "Deben llenarse todos los campos", null);
         }

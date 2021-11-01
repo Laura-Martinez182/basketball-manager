@@ -9,7 +9,7 @@ public class BalancedBinaryTree<K, V extends Comparable<V>> extends BinarySearch
     }
 
     @Override
-    public void insert(K k, V v) {
+    public synchronized void insert(K k, V v) {
         TreeNode<K, V> toAdd = new TreeNode<>(k, v);
         if(super.getRootNode() == null)
             super.setRootNode(toAdd);
@@ -17,7 +17,7 @@ public class BalancedBinaryTree<K, V extends Comparable<V>> extends BinarySearch
             insert(super.getRootNode(), toAdd);
     }
 
-    private void insert(TreeNode<K, V> aux, TreeNode<K, V> toAdd) {
+    private synchronized void insert(TreeNode<K, V> aux, TreeNode<K, V> toAdd) {
         if(toAdd.compareTo(aux.value()) >= 0) {
             if(aux.right() == null) {
                 aux.setRight(toAdd);
@@ -38,7 +38,7 @@ public class BalancedBinaryTree<K, V extends Comparable<V>> extends BinarySearch
     }
 
     @Override
-    public void remove(K k) throws TreeException {
+    public synchronized void remove(K k) throws TreeException {
         if(super.isEmpty())
             throw new TreeException();
         TreeNode<K, V> toRemove = super.searchNodeByKey(super.getRootNode(), k);

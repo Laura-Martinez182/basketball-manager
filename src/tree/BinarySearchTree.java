@@ -45,7 +45,7 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
     }
 
     @Override
-    public void insert(K k, V v) throws TreeException {
+    public synchronized void insert(K k, V v) throws TreeException {
         TreeNode<K, V> toAdd = new TreeNode<>(k, v);
         if(containsKey(k))
             throw new TreeException("Could not insert the node because the key is already in use");
@@ -55,7 +55,7 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
             insert(root, toAdd);
     }
 
-    private void insert(TreeNode<K, V> aux, TreeNode<K, V> toAdd) {
+    private synchronized void insert(TreeNode<K, V> aux, TreeNode<K, V> toAdd) {
         if(toAdd.compareTo(aux.value()) >= 0) {
             if(aux.right() == null) {
                 aux.setRight(toAdd);
@@ -127,7 +127,7 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
             nodeV.setParent(nodeU.parent());
     }
 
-    protected TreeNode<K, V> remove(TreeNode<K, V> toRemove) {
+    protected synchronized TreeNode<K, V> remove(TreeNode<K, V> toRemove) {
         TreeNode<K, V> parent = toRemove.parent();
         if(toRemove.left() == null) {
             transplant(toRemove, toRemove.right());

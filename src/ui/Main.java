@@ -36,7 +36,7 @@ public class Main extends Application {
         window.setTitle("");
         window.setScene(scene);
         window.show();
-        EGC.showImportPlayersDataScene();
+        MGC.showViewPlayersScene();
     }
 
 }

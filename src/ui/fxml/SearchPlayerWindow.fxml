@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <Pane prefHeight="400.0" prefWidth="495.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="147.0" layoutY="23.0" text="Búsqueda de jugadores">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <VBox layoutX="16.0" layoutY="63.0" prefHeight="435.0" prefWidth="457.0">
+               <children>
+                  <HBox prefHeight="37.0" prefWidth="423.0">
+                     <children>
+                        <Pane prefHeight="37.0" prefWidth="25.0" />
+                        <RadioButton fx:id="nameRB" mnemonicParsing="false" onAction="#checkChosenOption" text="Nombre:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="searchOpt" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <Pane prefHeight="44.0" prefWidth="40.0" />
+                        <TextField fx:id="nameSearchTxt" prefHeight="25.0" prefWidth="185.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="457.0">
+                     <children>
+                        <Label text="Criterio:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="33.0" prefWidth="45.0" />
+                        <ChoiceBox fx:id="criteriaCB" prefHeight="25.0" prefWidth="130.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="457.0">
+                     <children>
+                        <Pane prefHeight="38.0" prefWidth="25.0" />
+                        <RadioButton fx:id="inequalityRB" mnemonicParsing="false" onAction="#checkChosenOption" prefHeight="20.0" prefWidth="114.0" text="Desigualdad:" toggleGroup="$searchOpt">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <Pane prefHeight="43.0" prefWidth="11.0" />
+                        <Label prefHeight="20.0" prefWidth="68.0" text="Menor a:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="minTxt" prefHeight="25.0" prefWidth="50.0" />
+                        <Pane prefHeight="43.0" prefWidth="40.0" />
+                        <Label prefHeight="20.0" prefWidth="68.0" text="Mayor a:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="maxTxt" prefHeight="25.0" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="457.0">
+                     <children>
+                        <Pane prefHeight="38.0" prefWidth="25.0" />
+                        <RadioButton fx:id="equalRB" mnemonicParsing="false" onAction="#checkChosenOption" text="Igualdad:" toggleGroup="$searchOpt">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <Pane prefHeight="46.0" prefWidth="41.0" />
+                        <Label prefHeight="20.0" prefWidth="65.0" text="igual a:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="equalTxt" prefHeight="25.0" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="15.0" prefWidth="457.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#searchPlayers" prefHeight="18.0" prefWidth="69.0" text="BUSCAR">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children></HBox>
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="457.0">
+                     <children>
+                        <Label text="RESULTADOS">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="193.0" prefWidth="457.0">
+                     <children>
+                        <ListView fx:id="resultsList" prefHeight="187.0" prefWidth="350.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

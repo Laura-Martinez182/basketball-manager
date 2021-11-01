@@ -1,15 +1,20 @@
 package ui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Criteria;
 import model.FIBAManager;
+import model.Player;
+
 import java.io.IOException;
+import java.util.List;
 
 public class MainGUIController {
 
@@ -21,7 +26,7 @@ public class MainGUIController {
     @FXML
     private BorderPane mainPane;
 
-    //player
+    //Register Player
     @FXML
     private TextField nameTxt;
     @FXML
@@ -38,6 +43,27 @@ public class MainGUIController {
     private TextField stealsTxt;
     @FXML
     private TextField blocksTxt;
+    //View Player
+    @FXML
+    private ToggleGroup searchOpt;
+    @FXML
+    private RadioButton nameRB;
+    @FXML
+    private RadioButton inequalityRB;
+    @FXML
+    private RadioButton equalRB;
+    @FXML
+    private TextField nameSearchTxt;
+    @FXML
+    private ChoiceBox<Criteria> criteriaCB;
+    @FXML
+    private TextField minTxt;
+    @FXML
+    private TextField maxTxt;
+    @FXML
+    private TextField equalTxt;
+    @FXML
+    private ListView<Player> resultsList;
 
     public MainGUIController(FIBAManager manager, EmergentGUIController EGC) {
         this.manager = manager;
@@ -90,6 +116,110 @@ public class MainGUIController {
         } catch(NumberFormatException e) {
             showInformationAlert(null, "No se pudo registrar al jugador porque hay campos númericos que contienen caracteres o están vacíos", null);
         }
+    }
+
+    public void showViewPlayersScene() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FOLDER + "SearchPlayerWindow.fxml"));
+        fxmlLoader.setController(this);
+        Parent root = fxmlLoader.load();
+        mainPane.setCenter(root);
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setTitle("");
+        stage.setHeight(515.0);
+        stage.setWidth(495.0);
+        stage.setResizable(false);
+        criteriaCB.getItems().addAll(Criteria.values());
+        criteriaCB.setDisable(true);
+        nameSearchTxt.setDisable(true);
+        minTxt.setDisable(true);
+        maxTxt.setDisable(true);
+        equalTxt.setDisable(true);
+    }
+
+    @FXML
+    public void checkChosenOption(ActionEvent event) {
+        RadioButton rb = (RadioButton) searchOpt.getSelectedToggle();
+        if(rb == nameRB) {
+            criteriaCB.setDisable(true);
+            minTxt.clear();
+            minTxt.setDisable(true);
+            maxTxt.clear();
+            maxTxt.setDisable(true);
+            equalTxt.clear();
+            equalTxt.setDisable(true);
+            nameSearchTxt.setDisable(false);
+        } else if(rb == inequalityRB) {
+            criteriaCB.setDisable(false);
+            nameSearchTxt.clear();
+            nameSearchTxt.setDisable(true);
+            equalTxt.clear();
+            equalTxt.setDisable(true);
+            minTxt.setDisable(false);
+            maxTxt.setDisable(false);
+        } else {
+            criteriaCB.setDisable(false);
+            nameSearchTxt.clear();
+            nameSearchTxt.setDisable(true);
+            minTxt.clear();
+            minTxt.setDisable(true);
+            maxTxt.clear();
+            maxTxt.setDisable(true);
+            equalTxt.setDisable(false);
+        }
+    }
+
+    @FXML
+    public void searchPlayers(ActionEvent event) {
+        RadioButton option = (RadioButton) searchOpt.getSelectedToggle();
+        resultsList.getItems().clear();
+        if(option != null) {
+            if(option == nameRB) {
+                String name = nameSearchTxt.getText();
+                if(!name.isEmpty())
+                    setResultsListElements(manager.searchPlayersByName(name));
+                else
+                    showInformationAlert(null, "Debe llenar el campo", null);
+                nameSearchTxt.clear();
+            } else {
+                Criteria criteria = criteriaCB.getValue();
+                if(criteria == null) {
+                    showInformationAlert(null, "Debe seleccionar un criterio de búsqueda", null);
+                    return;
+                }
+                if (option == inequalityRB) {
+                    try {
+                        double min = Double.parseDouble(minTxt.getText());
+                        double max = Double.parseDouble(maxTxt.getText());
+                        if (min > max || min < 0.0 || max < 0.0) {
+                            showInformationAlert(null, "Revise los valores de las casillas", null);
+                        } else {
+                            setResultsListElements(manager.searchPlayersInRange(criteria, min, max));
+                            minTxt.clear();
+                            maxTxt.clear();
+                        }
+                    } catch (NumberFormatException e) {
+                        showInformationAlert(null, "Los valores deben ser números", null);
+                    }
+                } else {
+                    try {
+                        double value = Double.parseDouble(equalTxt.getText());
+                        if (value > 0) {
+                            setResultsListElements(manager.searchPlayersByValue(criteria, value));
+                            equalTxt.clear();
+                        }
+                    } catch (NumberFormatException e) {
+                        showInformationAlert(null, "El valor debe ser un número", null);
+                    }
+                }
+            }
+        } else {
+            showInformationAlert(null, "Debe seleccionarse una opción", null);
+        }
+    }
+
+    private void setResultsListElements(List<Player> players) {
+        ObservableList<Player> list = FXCollections.observableList(players);
+        resultsList.setItems(list);
     }
 
     private void showInformationAlert(String title,String msg,String header){

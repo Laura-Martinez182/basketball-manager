@@ -45,10 +45,10 @@ public class BinarySearchTree<K, V extends Comparable<V>> implements TreeInterfa
     }
 
     @Override
-    public synchronized void insert(K k, V v) throws TreeException {
+    public synchronized void insert(K k, V v) {
         TreeNode<K, V> toAdd = new TreeNode<>(k, v);
         if(containsKey(k))
-            throw new TreeException("Could not insert the node because the key is already in use");
+            return;
         if(root == null)
             root = toAdd;
         else

@@ -10,6 +10,8 @@ public class BalancedBinaryTree<K, V extends Comparable<V>> extends BinarySearch
 
     @Override
     public synchronized void insert(K k, V v) {
+        if(containsKey(k))
+            return;
         TreeNode<K, V> toAdd = new TreeNode<>(k, v);
         if(super.getRootNode() == null)
             super.setRootNode(toAdd);

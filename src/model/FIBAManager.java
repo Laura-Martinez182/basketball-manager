@@ -2,6 +2,7 @@ package model;
 
 import thread.LoadDataThread;
 import tree.BalancedBinaryTree;
+import tree.BinarySearchTree;
 import tree.TreeException;
 import tree.TreeInterface;
 import java.io.*;
@@ -29,7 +30,7 @@ public class FIBAManager {
     private BufferedReader reader;
     private PrintWriter writer;
 
-    private BalancedBinaryTree<Integer, Double> pointsTree;
+    private BinarySearchTree<Integer, Double> pointsTree;
     private BalancedBinaryTree<Integer, Double> reboundsTree;
     private BalancedBinaryTree<Integer, Double> assistsTree;
     private BalancedBinaryTree<Integer, Double> stealsTree;
@@ -38,7 +39,7 @@ public class FIBAManager {
     public FIBAManager() throws IOException {
         searchTime = 0L;
         dataFile = new File(fileURL);
-        pointsTree = new BalancedBinaryTree<>();
+        pointsTree = new BinarySearchTree<>();
         reboundsTree = new BalancedBinaryTree<>();
         assistsTree = new BalancedBinaryTree<>();
         stealsTree = new BalancedBinaryTree<>();
